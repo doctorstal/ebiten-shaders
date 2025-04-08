@@ -1,0 +1,46 @@
+//kage:unit pixels
+package main
+
+func Fragment(targetCoords vec4, _ vec2, _ vec4) vec4 {
+	return BlackAndWhiteSin(targetCoords.xy)
+}
+
+const waveSize = 10.0
+func BlackAndWhiteSin(position vec2) vec4{
+  if position.x + sin(position.y/waveSize)*waveSize < 256.0 {
+    return vec4(1.0)
+  } else {
+    return vec4(vec3(0.0), 1.0)
+  }
+}
+
+func BlackAndWhite(position vec2) vec4{
+  if position.x < 256.0 {
+    return vec4(1.0)
+  } else {
+    return vec4(vec3(0.0), 1.0)
+  }
+}
+
+func Checkers(position vec2) vec4 {
+  if mod(floor(position.x/28) + floor(position.y/8), 2) == 0.0 {
+    return vec4(1.0)
+  } else {
+    return vec4(vec3(0.0), 1.0)
+  }
+}
+
+
+func CircleOnGradient(position vec2) vec4 {
+  green := (300 - position.y)/300
+  blue := position.y/300
+  red := position.x/300
+  return vec4(red, green, blue, 1.0)
+}
+
+func Gradient(position vec2) vec4 {
+	green := (600 - position.y-position.x)/600
+	blue  := position.y/300
+  red := 0.0
+	return vec4(red, green, blue, 1.0)
+}
