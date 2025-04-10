@@ -1,0 +1,15 @@
+//kage:unit pixels
+package main
+
+var MirrorAlphaMult float // uniform: reflection opacity multiplier
+var VertDisplacement int  // uniform: displacement towards the center
+
+func Fragment(targetCoords vec4, sourceCoords vec2, _ vec4) vec4 {
+  oY := imageSrc0Origin().y
+  height := imageSrc0Size().y
+  if targetCoords.y > height-float(VertDisplacement) {
+	  return imageSrc0At(vec2(sourceCoords.x, 2*height - float(VertDisplacement) - (sourceCoords.y-oY)*2+oY))*MirrorAlphaMult
+  }
+	return imageSrc0At(vec2(sourceCoords.x, (sourceCoords.y-oY)*2+oY))
+}
+
